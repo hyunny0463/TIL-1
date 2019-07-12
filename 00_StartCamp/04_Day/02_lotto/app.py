@@ -12,7 +12,8 @@ def lotto_check():
 def lotto_result():
     num = request.args.get('num')
     res = requests.get(f'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={num}')
-    lotto = res.json() # 로또 결과(딕셔너리)
+    # print(dir(res))
+    lotto = res.json() # 로또 결과(딕셔너리)  
     
     #1. 번호 6개 가져오기
     winner = []
