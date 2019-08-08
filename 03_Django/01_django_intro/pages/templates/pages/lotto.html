@@ -1,0 +1,13 @@
+<h1>오늘의 로또 번호 추첨, 인생역전 가즈아!!!</h1>
+<hr>
+
+{% for lotto in lottos %}
+    <p>{{ lotto }}</p>
+{% endfor %}
+
+<h2>로또 번호 비교</h2>
+{% if lottos == real_lottos %}
+    <p>퇴사 가즈아!!!!!!</p>
+{% else %}
+    <p>대표님 충성충성</p>
+{% endif %}
