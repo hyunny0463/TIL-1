@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Article
 
 def index(request):
-    articles = Article.objects.all()
+    # articles = Article.objects.all()[::-1]
+    articles = Article.objects.order_by('-pk')
     # print(articles)
     # print(type(articles))
     context = {'articles': articles}
@@ -12,8 +13,9 @@ def new(request):
     return render(request, 'articles/new.html')
 
 def create(request):
-    title = request.GET.get('title')
-    content = request.GET.get('content')
+    title = request.POST.get('title')
+    # print(title)
+    content = request.POST.get('content')
 
     #1. 첫번째 방법
     # article = Article()
@@ -28,5 +30,8 @@ def create(request):
     #3. 세번째 방법
     Article.objects.create(title=title, content=content)
 
-    return render(request, 'articles/create.html')
+    return redirect('/articles/')
+
+def detail(request, pk):
+    pass
 
