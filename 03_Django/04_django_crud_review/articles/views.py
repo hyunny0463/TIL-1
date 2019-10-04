@@ -24,14 +24,16 @@ def create(request):
     # article.save()
 
     #2. 두번째 방법
-    # article = Article(title=title, content=content)
-    # article.save()
+    article = Article(title=title, content=content)
+    article.save()
 
     #3. 세번째 방법
-    Article.objects.create(title=title, content=content)
+    # Article.objects.create(title=title, content=content)
 
-    return redirect('/articles/')
+    return redirect(f'/articles/{article.pk}/')
 
 def detail(request, pk):
-    pass
+    article = Article.objects.get(pk=pk)
+    context = {'article': article}
+    return render(request, 'articles/detail.html', context)
 
