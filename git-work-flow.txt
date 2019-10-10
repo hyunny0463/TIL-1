@@ -1,0 +1,15 @@
+1. credential 날리기
+$ git credential reject
+porotocol=https
+host=lab.ssafy.com
+
+2. clone - gitlab 접속 후 HTTPS 주소 복사(~에 복사 - students!)
+$ git clone 해당 주소 붙여넣기 + enter
+
+3. 홈워크샵 작업 후 add, commit 진행
+
+4.  gitlab remote 이름 변경 - clone을 받으면 기본이 origin
+$ git remote rename origin gitlab 
+
+5. gitlab에 push
+$ git push gitlab master 

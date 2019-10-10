@@ -122,6 +122,10 @@ dmypy.json
 # env files
 .env
 
+# csv
+hellodb.csv
+users.csv
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 
