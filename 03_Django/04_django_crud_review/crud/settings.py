@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'crud', 'assets'),
 ]
+
+# STATIC_URL과 비슷.
+# 업로드된 파일의 주소(URL)를 만들어줌 
+# 실제 이미지 파일이 업로드 된 디렉토리는 아님
+MEDIA_URL = '/media/'
+
+# 사용자가 업로드한 이미지 파일의 저장 위치
+# 업로드가 끝난 이미지 파일을 위치 시킬 최상위 경로
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
