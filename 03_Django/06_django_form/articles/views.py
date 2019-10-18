@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article 
-from .forms import ArticleForm
+from django.views.decorators.http import require_POST
+from .models import Article, Comment 
+from .forms import ArticleForm, CommentForm
 from IPython import embed
 
 def index(request):
@@ -34,16 +35,22 @@ def create(request):
 
 def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    context = {'article': article, }
+    comments = article.comment_set.all()
+    comment_form = CommentForm()
+    context = {
+        'article': article, 
+        'comment_form': comment_form, 
+        'comments': comments
+        }
     return render(request, 'articles/detail.html', context)
 
+@require_POST
 def delete(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == 'POST':
-        article.delete()
-        return redirect('articles:index') # redirect -> GET 요청
-    return redirect('articles:detail', article.pk)
+    article.delete()
+    return redirect('articles:index') # redirect -> GET 요청
 
+@require_POST
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
@@ -75,13 +82,19 @@ Update 로직
 - 수정된 글을 DB에 저장
 """
 
-def comments_create():
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        ...
+@require_POST
+def comments_create(request, article_pk):
+    # article = get_object_or_404(Article, pk=article_pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
         comment = comment_form.save(commit=False)
-        ...
+        comment.article_id = article_pk
         comment.save()
-    return rendirect('articles:detail', article_pk)
-    
+    return redirect('articles:detail', article_pk)
+
+@require_POST
+def comments_delete(request, article_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    comment.delete()
+    return redirect('articles:detail', article_pk)
 
