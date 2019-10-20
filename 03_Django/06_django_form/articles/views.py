@@ -50,7 +50,6 @@ def delete(request, article_pk):
     article.delete()
     return redirect('articles:index') # redirect -> GET 요청
 
-@require_POST
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
