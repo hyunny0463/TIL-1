@@ -1,3 +1,2 @@
-const name = function () {
-  console.log('hihi')
-}
+a = 1
+console.log(a)
